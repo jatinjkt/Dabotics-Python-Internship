@@ -1,0 +1,31 @@
+from datetime import datetime, timedelta
+import time
+from playsound import playsound
+
+def set_alarm():
+    print("Enter the time for the alarm (24-hour format, e.g., 13:30):")
+    alarm_time_str = input(">> ")
+
+    try:
+        alarm_time = datetime.strptime(alarm_time_str, "%H:%M")
+    except ValueError:
+        print("Invalid time format. Please use the 24-hour format (HH:MM).")
+        return
+
+    return alarm_time
+
+def check_alarm(alarm_time):
+    while True:
+        current_time = datetime.now().strftime("%H:%M")
+        if current_time == alarm_time.strftime("%H:%M"):
+            print("Time to wake up!")
+            playsound("/Users/jatinkumar/Downloads/alarm_sound.mp3")  # Replace "beep.mp3" with the path to your sound file
+            break
+        time.sleep(1)
+
+# Set the alarm
+alarm_time = set_alarm()
+
+# Check the alarm
+if alarm_time:
+    check_alarm(alarm_time)

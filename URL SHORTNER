@@ -1,0 +1,28 @@
+import hashlib
+
+class URLShortener:
+    def __init__(self):
+        self.url_mapping = {}
+
+    def shorten_url(self, original_url):
+        short_code = hashlib.md5(original_url.encode()).hexdigest()[:8]
+        self.url_mapping[short_code] = original_url
+        shortened_url = f"http://short.url/{short_code}"
+        return shortened_url
+
+    def expand_url(self, short_code):
+        original_url = self.url_mapping.get(short_code, "URL not found")
+        return original_url
+
+# Example usage:
+url_shortener = URLShortener()
+
+# Get user input
+original_url = input("Enter the URL to shorten: ")
+
+
+# Shorten the URL
+shortened_url = url_shortener.shorten_url(original_url)
+
+# Display the shortened URL
+print(f"Shortened URL: {shortened_url}")

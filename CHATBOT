@@ -1,0 +1,47 @@
+import random
+
+class SimpleChatbot:
+    def __init__(self, personality):
+        self.personality = personality
+
+    def greet_user(self):
+        print(f"{self.personality['greeting']}! How can I assist you today?")
+
+    def respond_to_input(self, user_input):
+        responses = self.personality.get("responses", {})
+        default_response = self.personality.get("default_response", "I'm not sure how to respond to that.")
+
+        return responses.get(user_input.lower(), default_response)
+
+    def chat(self):
+        self.greet_user()
+
+        while True:
+            user_input = input("You: ")
+            if user_input.lower() in ["exit", "bye", "quit"]:
+                print("Goodbye! Have a great day.")
+                break
+
+            response = self.respond_to_input(user_input)
+            print("Bot:", response)
+if __name__ == "__main__":
+    # Define the personality of the chatbot
+    my_chatbot_personality = {
+        "greeting": "Hello",
+        "responses": {
+            "how are you": "I'm just a program, but thanks for asking!",
+            "tell me a joke": "Why don't scientists trust atoms? Because they make up everything!",
+            "what is your name": "You can call me chatterbot.",
+            "how does the weather look today": "I'm afraid I don't have real-time data, but you can check a weather website for accurate information.",
+            "who is the prime minister": "Shree Narendra Modi",
+            "what is the meaning of life": "The meaning of life is a philosophical question. Some believe it's 42!",
+            "favorite color": "I don't have a favorite color, but I like the idea of binary code.",
+        },
+        "default_response": "I'm not sure how to respond to that.",
+    }
+
+    # Create an instance of the chatbot with the defined personality
+    my_chatbot = SimpleChatbot(personality=my_chatbot_personality)
+
+    # Start the chatbot conversation
+    my_chatbot.chat()
